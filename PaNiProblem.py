@@ -272,23 +272,18 @@ class Error(Thread):
         laser_list = ['LaserSensorFrontPlatform',
                       'LaserSensorLeftPlatform', 'LaserSensorRightPlatform']
         i = 0
-        for i in range(0, 5):
+        for i in range(0, 3):
             if self.board in upper_list:
                 error_list = read_section("Error_list.cfg", "Up")
                 code_error = self.mem.getData(
                     self.prefix + str(self.board) + "/Error")
                 for error in error_list:
                     if int(code_error) != 0:
-                        if int(code_error) != int(error):
-                            error_description = str(
-                                code_error) + " " + self.unknown_error
-                            self.error_description.append(
-                                error_description)
-                        else:
+                        if int(code_error) == int(error):
                             error_description = str(
                                 code_error) + " " + error_list[error][0]
                             self.error_description.append(error_description)
-                        i = i + 1
+                            i = i + 1
 
             elif self.board in down_list:
                 error_list = read_section("Error_list.cfg", "Down")
@@ -297,16 +292,11 @@ class Error(Thread):
 
                 for error in error_list:
                     if int(code_error) != 0:
-                        if int(code_error) != int(error):
-                            error_description = str(
-                                code_error) + " " + self.unknown_error
-                            self.error_description.append(
-                                error_description)
-                        else:
+                        if int(code_error) == int(error):
                             error_description = str(
                                 code_error) + " " + error_list[error][0]
                             self.error_description.append(error_description)
-                        i = i + 1
+                            i = i + 1
 
             elif self.board in laser_list:
                 error_list = read_section("Error_list.cfg", "Laser")
@@ -315,16 +305,11 @@ class Error(Thread):
 
                 for error in error_list:
                     if int(code_error) != 0:
-                        if int(code_error) != int(error):
-                            error_description = str(
-                                code_error) + " " + self.unknown_error
-                            self.error_description.append(
-                                error_description)
-                        else:
+                        if int(code_error) == int(error):
                             error_description = str(
                                 code_error) + " " + error_list[error][0]
                             self.error_description.append(error_description)
-                        i = i + 1
+                            i = i + 1
 
     def result(self):
         """return error description"""
@@ -369,8 +354,8 @@ def main():
     parser.add_argument("-v", "--version", action="version",
                         version="%(prog)s 1.1")
 
-    parser.add_argument("-w", "--wake", dest="wakeup",
-                        help='wakeUp for robot')
+    parser.add_argument("-w", "--wakeup", dest="wakeup",
+                        help='wakeUp for robot', action='store_true')
 
     args = parser.parse_args()
 
