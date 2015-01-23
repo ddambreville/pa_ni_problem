@@ -1,9 +1,5 @@
 #!/usr/bin/env python
-#==============================================================================
-#               ALDEBARAN-ROBOTICS - SOFTWARE QH
-#==============================================================================
-# FILE : PaNiProblem.py
-# DESCRIPTION
+# -*- coding: utf-8 -*-
 
 """
 Description:
